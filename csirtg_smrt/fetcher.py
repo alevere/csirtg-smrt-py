@@ -126,7 +126,9 @@ class Fetcher(object):
             yield l
 
     def _process_cache(self, split="\n", rstrip=True):
-        ftype = magic.from_file(self.cache, mime=True)
+        mag=magic.open(magic.MAGIC_MIME)
+        mag.load()
+        ftype = mag.file(self.cache)
         if PYVERSION < 3:
             ftype = ftype.decode('utf-8')
 
